@@ -65,13 +65,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const connection = new Connection('https://api.mainnet-beta.solana.com', 'confirmed');
+        const connection = new Connection(process.env.REACT_APP_SOLANA_RPC_URL, 'confirmed');
         const sourceKeypair = Keypair.fromSecretKey(bs58.decode(sourceWalletBase58));
-        const contractPubKey = new PublicKey(contractAddress);
+        const mintAddress = new PublicKey(contractAddress);
 
         try {
-            const mintAddress = contractPubKey;
-
             const sourceTokenAccount = await getOrCreateAssociatedTokenAccount(
                 connection,
                 sourceKeypair,

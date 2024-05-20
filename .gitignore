@@ -3,3 +3,5 @@
 wallets
 
 node_modules
+
+.env
