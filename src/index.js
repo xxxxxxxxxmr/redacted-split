@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const connection = new Connection(process.env.REACT_APP_SOLANA_RPC_URL, 'confirmed');
+        const connection = new Connection(process.env.SOLANA_RPC_URL, 'confirmed');
         const sourceKeypair = Keypair.fromSecretKey(bs58.decode(sourceWalletBase58));
         const mintAddress = new PublicKey(contractAddress);
 
