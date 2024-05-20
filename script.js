@@ -6,9 +6,9 @@ document.getElementById('split-form').addEventListener('submit', async (event) =
 
   const walletsFile = document.getElementById('wallets-file').files[0];
   const sourceWalletBase58 = document.getElementById('source-wallet').value;
-  const tokenMint = document.getElementById('token-mint').value;
+  const contractAddress = document.getElementById('contract-address').value;
 
-  if (!walletsFile || !sourceWalletBase58 || !tokenMint) {
+  if (!walletsFile || !sourceWalletBase58 || !contractAddress) {
       resultDiv.innerHTML = '<p style="color:red;">Please fill in all fields.</p>';
       return;
   }
@@ -18,9 +18,17 @@ document.getElementById('split-form').addEventListener('submit', async (event) =
 
   const connection = new solanaWeb3.Connection(solanaWeb3.clusterApiUrl('mainnet-beta'), 'confirmed');
   const sourceKeypair = solanaWeb3.Keypair.fromSecretKey(solanaWeb3.Keypair.fromSecretKey(Uint8Array.from(solanaWeb3.utils.bs58.decode(sourceWalletBase58))));
-  const mintAddress = new solanaWeb3.PublicKey(tokenMint);
+  const contractPubKey = new solanaWeb3.PublicKey(contractAddress);
 
   try {
+      const mintAddress = await connection.getAccountInfo(contractPubKey).then(info => {
+          if (!info || !info.data) {
+              throw new Error('Invalid contract address');
+          }
+          const mintInfo = solanaWeb3.AccountLayout.decode(info.data);
+          return new solanaWeb3.PublicKey(mintInfo.mint);
+      });
+
       const sourceTokenAccount = await splToken.Token.getAssociatedTokenAddress(
           splToken.ASSOCIATED_TOKEN_PROGRAM_ID,
           splToken.TOKEN_PROGRAM_ID,
