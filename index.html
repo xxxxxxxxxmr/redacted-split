@@ -11,8 +11,22 @@
         <h1>Solana Token Splitter</h1>
         <form id="split-form">
             <div class="form-group">
+                <label for="wallets-input-method">Wallet Input Method:</label>
+                <select id="wallets-input-method">
+                    <option value="file">Upload Wallets File</option>
+                    <option value="manual">Enter Wallets Manually</option>
+                </select>
+            </div>
+            <div class="form-group" id="file-input-group">
                 <label for="wallets-file">Upload Wallets File:</label>
-                <input type="file" id="wallets-file" accept=".txt" required>
+                <input type="file" id="wallets-file" accept=".txt">
+            </div>
+            <div id="manual-input-group" style="display: none;">
+                <div class="form-group">
+                    <label for="recipient-wallets">Recipient Wallets:</label>
+                    <div id="recipient-wallets"></div>
+                    <button type="button" id="add-wallet-button">Add Wallet</button>
+                </div>
             </div>
             <div class="form-group">
                 <label for="source-wallet">Source Wallet Secret Key (Base58):</label>

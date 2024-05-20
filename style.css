@@ -32,7 +32,7 @@ label {
   margin-bottom: 5px;
 }
 
-input, textarea, button {
+input, textarea, select, button {
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
@@ -46,6 +46,7 @@ button {
   color: white;
   border: none;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 button:hover {
@@ -54,4 +55,12 @@ button:hover {
 
 #result {
   margin-top: 20px;
+}
+
+#manual-input-group .form-group {
+  margin-bottom: 5px;
+}
+
+#manual-input-group input {
+  margin-bottom: 5px;
 }
